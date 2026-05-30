@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure and interactive Global Crisis Tracker 2026. Review active geopolitical conflict heatmaps, simulator controls, and deep historical correlation analysis.">
+    
+    <!-- MANDATORY: Declare support for both light and dark themes (Default to Dark for Map Dashboard) -->
+    <meta name="color-scheme" content="dark">
+    
+    <!-- SECURITY LOCK DOWN: Content Security Policy (CSP) to block XSS and malicious injections -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https://*.basemaps.cartocdn.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.basemaps.cartocdn.com https://storage.googleapis.com; frame-ancestors 'none';">
+    
+    <title>Global Conflict Tracker - Geopolitical Heatmap & Historical Analysis</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet.js CSS with SRI (Subresource Integrity) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation / Status Header -->
+        <header class="app-header" id="main-header">
+            <div class="header-logo">
+                <div class="pulsing-red-dot"></div>
+                <h1>GLOBAL CONFLICT TRACKER</h1>
+            </div>
+            
+            <!-- Global Dashboard Metrics -->
+            <div class="global-metrics">
+                <div class="metric-item" id="metric-total">
+                    <span class="metric-label">Active Conflicts</span>
+                    <span class="metric-value" id="val-total-conflicts">15</span>
+                </div>
+                <div class="metric-item" id="metric-critical">
+                    <span class="metric-label">High Escalation Risk</span>
+                    <span class="metric-value text-red" id="val-high-risk">5</span>
+                </div>
+                <div class="metric-item" id="metric-tension">
+                    <span class="metric-label">Global Tension Index</span>
+                    <span class="metric-value text-orange" id="val-tension-index">78/100</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace Grid -->
+        <main class="app-main">
+            <!-- Map Section -->
+            <section class="map-section" aria-label="Interactive World Conflict Map">
+                <div id="map" class="conflict-map"></div>
+                
+                <!-- Floating Legend -->
+                <div class="map-legend glass-panel" id="map-legend">
+                    <h3>Risk & Intensity Legend</h3>
+                    <div class="legend-group">
+                        <h4>Global Spillover Risk (Color)</h4>
+                        <ul class="legend-colors">
+                            <li><span class="color-swatch bg-deep-red"></span> Extremely High (Global fallout)</li>
+                            <li><span class="color-swatch bg-red"></span> High (Regional / Supply chains)</li>
+                            <li><span class="color-swatch bg-mild-red"></span> Mild (Regional containment)</li>
+                            <li><span class="color-swatch bg-yellow"></span> Localized (Low spillover)</li>
+                        </ul>
+                    </div>
+                    <div class="legend-group">
+                        <h4>Conflict Intensity (Circle Size)</h4>
+                        <div class="legend-sizes">
+                            <div class="size-item"><span class="size-circle circle-lg"></span> High Scale (Conventional)</div>
+                            <div class="size-item"><span class="size-circle circle-md"></span> Medium Scale (Civil war / Invasions)</div>
+                            <div class="size-item"><span class="size-circle circle-sm"></span> Low Scale (Insurgencies / Tension)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar Panel -->
+            <aside class="sidebar-section glass-panel" aria-label="Geopolitical Feeds and Controls">
+                <!-- Search & Filters -->
+                <div class="search-filter-panel">
+                    <div class="search-box">
+                        <label for="conflict-search" class="sr-only">Search conflicts or countries</label>
+                        <input type="text" id="conflict-search" placeholder="Search conflict or region..." aria-label="Search conflicts">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" id="filter-all" data-filter="all">All</button>
+                        <button class="filter-tab" id="filter-extreme" data-filter="extreme">Extreme</button>
+                        <button class="filter-tab" id="filter-high" data-filter="high">High</button>
+                        <button class="filter-tab" id="filter-mild" data-filter="mild">Mild</button>
+                        <button class="filter-tab" id="filter-local" data-filter="local">Localized</button>
+                    </div>
+                </div>
+
+                <!-- Conflicts Directory -->
+                <div class="conflict-list" id="conflict-list-container" role="list">
+                    <!-- Dynamic cards injected by app.js -->
+                </div>
+
+                <!-- Detailed Analysis & Sandbox (Revealed on click) -->
+                <div class="details-panel glass-panel hidden" id="details-panel" aria-hidden="true">
+                    <div class="details-header">
+                        <h2 id="detail-title">Conflict Detail</h2>
+                        <button class="close-btn" id="close-detail" aria-label="Close detailed analysis">&times;</button>
+                    </div>
+                    
+                    <div class="details-content">
+                        <div class="region-badge-row">
+                            <span class="badge" id="detail-region">Region Info</span>
+                            <span class="badge" id="detail-risk-badge">Risk Level</span>
+                        </div>
+                        
+                        <p class="conflict-description" id="detail-description">
+                            Detailed information about the selected conflict...
+                        </p>
+
+                        <!-- Chart Visualizer -->
+                        <div class="chart-container">
+                            <h4>Escalation Probability Projection</h4>
+                            <canvas id="escalation-chart" width="300" height="130" aria-label="Line chart showing escalation timeline projections" role="img"></canvas>
+                        </div>
+
+                        <!-- Sandbox Controls -->
+                        <div class="sandbox-container">
+                            <div class="sandbox-header">
+                                <h3>Escalation Sandbox Simulator</h3>
+                                <p class="sandbox-tip">Toggle triggers to simulate potential escalation paths.</p>
+                            </div>
+                            
+                            <form id="sandbox-form" class="sandbox-controls">
+                                <div class="control-group">
+                                    <label class="switch-container">
+                                        <input type="checkbox" id="trigger-foreign-involvement" name="foreignInvolvement">
+                                        <span class="switch-slider"></span>
+                                        <span class="switch-label">Foreign Military Direct Involvement</span>
+                                    </label>
+                                    <p class="control-desc">Direct engagement triggers global war threat, raising spillover risk.</p>
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label class="switch-container">
+                                        <input type="checkbox" id="trigger-economic-blockade" name="economicBlockade">
+                                        <span class="switch-slider"></span>
+                                        <span class="switch-label">Strait Blockade / Supply Chain Halt</span>
+                                    </label>
+                                    <p class="control-desc">Blockade of key maritime choke points spikes global supply risks.</p>
+                                </div>
+
+                                <div class="control-group">
+                                    <label class="switch-container">
+                                        <input type="checkbox" id="trigger-cyber-warfare" name="cyberWarfare">
+                                        <span class="switch-slider"></span>
+                                        <span class="switch-label">Critical Infrastructure Cyberattacks</span>
+                                    </label>
+                                    <p class="control-desc">Simulates structural digital attacks targeting power, banking, and communications.</p>
+                                </div>
+                            </form>
+                            
+                            <div class="simulation-output">
+                                <div class="sim-metric">
+                                    <span>Simulated Spillover Risk:</span>
+                                    <span class="sim-val text-red" id="simulated-spillover-val">EXTREME</span>
+                                </div>
+                                <div class="sim-metric">
+                                    <span>Simulated Radius (Intensity):</span>
+                                    <span class="sim-val" id="simulated-intensity-val">Radius</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Bottom Historical Correlation & Analysis Pane -->
+        <section class="analysis-section glass-panel" aria-label="Geopolitical Correlation and Historical Analysis">
+            <div class="analysis-header">
+                <div class="analysis-title-group">
+                    <span class="icon-historical">📖</span>
+                    <h2>Geopolitical Correlation & Historical Analysis</h2>
+                </div>
+                <div class="analysis-tabs" role="tablist">
+                    <button class="analysis-tab active" role="tab" aria-selected="true" aria-controls="pane-history" data-analysis-tab="history">Historical Parallels</button>
+                    <button class="analysis-tab" role="tab" aria-selected="false" aria-controls="pane-escalation" data-analysis-tab="escalation">Escalation & Predictor</button>
+                    <button class="analysis-tab" role="tab" aria-selected="false" aria-controls="pane-economy" data-analysis-tab="economy">Global Economic Impact</button>
+                </div>
+            </div>
+            
+            <div class="analysis-content">
+                <!-- History Tab Content -->
+                <div class="analysis-pane active" id="pane-history" role="tabpanel" aria-labelledby="tab-history">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>The Multipolarity Hazard (Pre-1914 vs 2026)</h3>
+                            <p>Just as in the lead-up to World War I, the current geopolitical landscape of 2026 exhibits rigid, overlapping alliance networks that run the risk of chain-gaining. The July Crisis of 1914 proved that minor regional disputes (such as localized Balkan frictions) can act as catalytic triggers. In 2026, conflicts like the Ukraine war, Taiwan Strait stand-offs, and Middle Eastern skirmishes serve as potential flashpoints where military triggers can bypass standard diplomatic cooling mechanisms.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Proxy War Containment Limits</h3>
+                            <p>Historically, proxy conflicts during the Cold War (Korea, Vietnam) were tightly managed to prevent direct nuclear power confrontation. However, the proxy doctrine reaches its limits when the borders of sovereign nuclear powers are breached or directly targeted. Modern long-range drone campaigns and infrastructure sabotage in Eastern Europe replicate the high-stakes escalations of the Cuban Missile Crisis (1962), where direct line communications were the only barrier against total warfare.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Choke Point Strategy & Historical Blockades</h3>
+                            <p>Choke points have always been the anchors of global power projection. The Berlin Blockade (1948) and the naval quarantine of Cuba demonstrated that blocking movement triggers immediate military posturing. In 2026, maritime choke points such as the Strait of Hormuz (20% of global oil) and the Bab-el-Mandeb Strait (Yemen Houthi shipping threats) represent highly vulnerable targets. Restricting these avenues forces immediate global naval intervention, mirroring historical fleet movements to break hostile sieges.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Escalation Tab Content -->
+                <div class="analysis-pane" id="pane-escalation" role="tabpanel" aria-labelledby="tab-escalation">
+                    <div class="analysis-grid">
+                        <div class="analysis-card highlighted-card">
+                            <h3>Systemic Risk Indicator</h3>
+                            <div class="risk-level-container">
+                                <span class="risk-label">Global War Trigger Status:</span>
+                                <span class="risk-meter-val text-red" id="global-ww3-index">ELEVATED (72%)</span>
+                            </div>
+                            <p class="risk-disclaimer">This value calculates real-time triggers from Sandbox configuration, tracking direct military operations, blockade thresholds, and cyber sabotage coordinates.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Predictive Escalation Path</h3>
+                            <p>Our historical modeling deduces that the next set of structural shocks will occur through **hybrid actions**:
+                            <br>• <strong>Phase 1:</strong> Digital paralysis of financial ledgers and grid grids (replicating early stages of state conflict).
+                            <br>• <strong>Phase 2:</strong> Subsea communications cable cutting in the North Sea and Atlantic.
+                            <br>• <strong>Phase 3:</strong> Enactment of "quarantine" lines around key semiconductor hubs, forcing direct naval interception.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Superpower Confrontation Hotspots</h3>
+                            <p>The primary area of high-intensity prediction is the Indo-Pacific, where the concentration of naval assets increases the probability of an accidental collision. Unlike land-based conventional struggles which can stagnate into attritional states (like Ukraine), naval confrontations scale rapidly due to ship-killing missile technology, leaving command structures with very tight response windows (minutes vs weeks).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Economy Tab Content -->
+                <div class="analysis-pane" id="pane-economy" role="tabpanel" aria-labelledby="tab-economy">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>Near-Future Economic Realities</h3>
+                            <p>The immediate consequence of current choke point conflict is the restructuring of maritime trade. Prolonged container routing around the Cape of Good Hope increases transit days by 30-40% and adds massive fuel surcharges, driving inflation in consumer goods. Oil markets are highly sensitive: any blockade in the Strait of Hormuz immediately raises global crude benchmarks by 35-50%, triggering energy rationing across Europe and East Asia.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>The Chip Famine (Distant Future)</h3>
+                            <p>Should the Taiwan Strait stand-off progress to a blockade or hot conflict, advanced microchip manufacturing (TSMC hubs) will halt instantly. The replacement time for these fabs is estimated at 3 to 5 years, causing a systemic global chip famine. This would stall updates in global communications, automotive, consumer computing, and defense industries, leading to a long-term economic technology stagnation.</p>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>De-Globalization & Reserve Currencies</h3>
+                            <p>Long-term geopolitical fracturing accelerates the division of the global economy into distinct financial circles. The extensive usage of sanctions and asset freezing triggers a flight from G7 assets. Competitor blocs (such as BRICS expansions) are establishing non-dollar clearing channels, leading to a highly fragmented currency system, reduced liquidity, and increased costs for multinational corporations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Leaflet.js JavaScript with SRI -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+    
+    <!-- Chart.js UMD bundle with SRI from cdnjs (Secure) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Custom Script -->
+    <script src="app.js"></script>
+</body>
+</html>

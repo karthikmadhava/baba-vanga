@@ -1,0 +1,11 @@
+{
+  "name": "global-crisis-tracker-2026",
+  "version": "1.0.0",
+  "description": "Geopolitical conflict mapping and spillover simulation dashboard.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve ."
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

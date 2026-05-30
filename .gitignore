@@ -1,0 +1,13 @@
+# Firebase Private Key
+firebase-key.json
+
+# Local logs
+*.log
+crawler_cron.log
+crawler.log
+
+# Dependency directories
+node_modules/
+
+# OS metadata
+.DS_Store

@@ -1,0 +1,53 @@
+# ====================================================
+# GCP CLOUD DOMAINS REGISTRATION CONTACT DATA TEMPLATE
+# ====================================================
+# Edit the placeholders below with your personal contact info,
+# then run the following command to register globalconflicttracker2026.org:
+#
+# gcloud domains registrations register globalconflicttracker2026.org \
+#   --contact-data-from-file=contact.yaml \
+#   --contact-privacy=private \
+#   --yearly-price=12.00
+# ====================================================
+
+# Registrant Contact Details (Must use real details to comply with ICANN rules)
+registrantContact:
+  email: 'karthikmadhava@gmail.com'
+  phoneNumber: '+91.9845443756' # Prefix with country code (e.g. +1. or +91.)
+  postalAddress:
+    regionCode: 'IN'           # Two-letter country code (e.g. US, IN, GB, CA)
+    postalCode: '560049'
+    administrativeArea: 'KA'   # State or province abbreviation
+    locality: 'BANGALORE'       # City
+    addressLines:
+    - 'VS 18 PRUKSA SILVANA'        # Street address
+    recipients:
+    - 'Karthik Madhava'
+
+# Admin Contact Details (Can copy from registrantContact)
+adminContact:
+  email: 'karthikmadhava@gmail.com'
+  phoneNumber: '+91.9845443756'
+  postalAddress:
+    regionCode: 'IN'
+    postalCode: '560049'
+    administrativeArea: 'KA'
+    locality: 'BANGALORE'
+    addressLines:
+    - 'VS 18 PRUKSA SILVANA'
+    recipients:
+    - 'Karthik Madhava'
+
+# Technical Contact Details (Can copy from registrantContact)
+technicalContact:
+  email: 'karthikmadhava@gmail.com'
+  phoneNumber: '+91.9845443756'
+  postalAddress:
+    regionCode: 'IN'
+    postalCode: '560049'
+    administrativeArea: 'KA'
+    locality: 'BANGALORE'
+    addressLines:
+    - 'VS 18 PRUKSA SILVANA'
+    recipients:
+    - 'Karthik Madhava'
