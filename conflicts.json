@@ -65,7 +65,7 @@
       27.1894,
       56.2708
     ],
-    "baseIntensity": 95,
+    "baseIntensity": 100,
     "baseSpillover": "extreme",
     "description": "Operation Epic Fury airstrikes and retaliatory missile/drone launches have led to highly volatile maritime standoffs. Continued skirmishes in the Strait of Hormuz disrupt global energy transportation channels.",
     "sandboxModifiers": {
@@ -94,8 +94,8 @@
       15.5007,
       32.5599
     ],
-    "baseIntensity": 72,
-    "baseSpillover": "high",
+    "baseIntensity": 10,
+    "baseSpillover": "local",
     "description": "A devastating civil war between the SAF and RSF has caused widespread destruction, mass internal displacement, and severe regional hunger. While humanitarian fallout is catastrophic, direct escalation into a major global power clash is currently contained.",
     "sandboxModifiers": {
       "foreignInvolvement": {
@@ -123,7 +123,7 @@
       19.7633,
       96.0785
     ],
-    "baseIntensity": 57,
+    "baseIntensity": 54,
     "baseSpillover": "mild",
     "description": "The military junta faces ongoing territorial losses to coalition forces and ethnic resistance groups. Widespread regional skirmishes persist, creating severe refugee migration pressures along border zones.",
     "sandboxModifiers": {
@@ -152,8 +152,8 @@
       24.42,
       120.25
     ],
-    "baseIntensity": 36,
-    "baseSpillover": "local",
+    "baseIntensity": 100,
+    "baseSpillover": "extreme",
     "description": "While not an active shooting conflict, intense naval deployments, air incursions, and rhetoric create a flashpoint. Any active confrontation would immediately involve the US and China, severely impacting global semiconductor supply chains.",
     "sandboxModifiers": {
       "foreignInvolvement": {
@@ -181,7 +181,7 @@
       15.3694,
       44.191
     ],
-    "baseIntensity": 56,
+    "baseIntensity": 53,
     "baseSpillover": "mild",
     "description": "Drone and missile attacks on cargo vessels by Houthi forces have forced global logistics networks to divert around Africa. US-led naval coalitions conduct frequent retaliatory strikes on launch facilities.",
     "sandboxModifiers": {
@@ -210,8 +210,8 @@
       -1.6585,
       29.223
     ],
-    "baseIntensity": 51,
-    "baseSpillover": "mild",
+    "baseIntensity": 100,
+    "baseSpillover": "extreme",
     "description": "Violent incursions by M23 and local militia forces continue to displace thousands in eastern DRC, complicated by local disease outbreaks. The conflict remains localized but risks triggering wider central African border clashes.",
     "sandboxModifiers": {
       "foreignInvolvement": {
@@ -239,8 +239,8 @@
       13.5116,
       2.1128
     ],
-    "baseIntensity": 42,
-    "baseSpillover": "mild",
+    "baseIntensity": 100,
+    "baseSpillover": "extreme",
     "description": "Insurgent activities and military coups in Niger, Mali, and Burkina Faso have led to the withdrawal of western military forces. High levels of local insecurity persist, driving migration flows toward North Africa and Europe.",
     "sandboxModifiers": {
       "foreignInvolvement": {
@@ -268,8 +268,8 @@
       37.925,
       127.2
     ],
-    "baseIntensity": 38,
-    "baseSpillover": "local",
+    "baseIntensity": 100,
+    "baseSpillover": "extreme",
     "description": "Artillery drills, balloon launches, and mutual terminations of military pacts maintain high tensions. High global impact due to the presence of nuclear weapons and defense treaties with major superpowers.",
     "sandboxModifiers": {
       "foreignInvolvement": {
@@ -297,8 +297,8 @@
       18.5392,
       -72.335
     ],
-    "baseIntensity": 56,
-    "baseSpillover": "mild",
+    "baseIntensity": 10,
+    "baseSpillover": "local",
     "description": "Criminal factions retain control over Port-au-Prince. The breakdown of state institutions has resulted in high violence and critical food insecurity. The threat remains localized but triggers migration flows toward North America.",
     "sandboxModifiers": {
       "foreignInvolvement": {
@@ -326,7 +326,7 @@
       -12.974,
       40.5178
     ],
-    "baseIntensity": 31,
+    "baseIntensity": 10,
     "baseSpillover": "local",
     "description": "Insurgent forces continue to target villages and security forces in northern Mozambique, periodically halting multibillion-dollar LNG projects. The conflict remains localized but impacts regional energy investments.",
     "sandboxModifiers": {
@@ -355,7 +355,7 @@
       33.5138,
       36.2765
     ],
-    "baseIntensity": 46,
+    "baseIntensity": 59,
     "baseSpillover": "mild",
     "description": "A partially frozen conflict characterized by sporadic regional clashes and strikes from Israel, Turkey, and Coalition forces. The complex overlap of global powers ensures high escalation potential.",
     "sandboxModifiers": {
@@ -384,7 +384,7 @@
       32.8872,
       13.1913
     ],
-    "baseIntensity": 30,
+    "baseIntensity": 10,
     "baseSpillover": "local",
     "description": "Split governance structures and sporadic militia clashes around oil infrastructure persist. Tensions remain localized, although they periodically disrupt Mediterranean energy pipelines.",
     "sandboxModifiers": {
@@ -413,8 +413,8 @@
       2.0469,
       45.3182
     ],
-    "baseIntensity": 37,
-    "baseSpillover": "local",
+    "baseIntensity": 59,
+    "baseSpillover": "mild",
     "description": "Government military operations against Al-Shabaab insurgent strongholds continue. The conflict is mostly localized, but regional tensions in the Horn of Africa add risk.",
     "sandboxModifiers": {
       "foreignInvolvement": {
